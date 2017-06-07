@@ -18,7 +18,7 @@ void cLogManager::CreateLog(ST_CHAT stData)
 	if (!writeFile.is_open()) 
 	{
 		char strFolderPath[] = "Server";
-		int nResult = mkdir(strFolderPath);
+		int nResult = _mkdir(strFolderPath);
 		if (nResult == 0)
 			cout << "폴더 생성 성공" << endl;
 		else if (nResult == -1)

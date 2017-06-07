@@ -74,13 +74,10 @@ unsigned int _stdcall HandleClnt(void * arg)
 	int strLen = 0, i;
 	ST_CHAT chat;
 
-	while ((strLen = recv(hClntSock, (char*)&chat, NAME_SIZE + BUF_SIZE, 0)) != 0)
+	while ((strLen = recv(hClntSock, (char*)&chat, sizeof(ST_CHAT), 0)) != 0)
 	{
-		if (strLen != -1)
-		{
-			SendMsg(chat.TEXT, sizeof(chat.TEXT));
-			g_pLog->CreateLog(chat);
-		}
+		SendMsg(chat.TEXT, sizeof(chat.TEXT));
+		g_pLog->CreateLog(chat);
 	}
 
 	WaitForSingleObject(hMutex_CHAT, INFINITE);	// << : Wait Mutex
