@@ -76,6 +76,7 @@ unsigned int _stdcall HandleClnt(void * arg)
 
 	while ((strLen = recv(hClntSock, (char*)&chat, sizeof(ST_CHAT), 0)) != 0)
 	{
+		if (strLen == -1) break;
 		SendMsg(chat.TEXT, sizeof(chat.TEXT));
 		g_pLog->CreateLog(chat);
 	}

@@ -14,7 +14,9 @@ cLogManager::~cLogManager()
 void cLogManager::CreateLog(ST_CHAT stData)
 {
 	string szFullPath = "Server/" + string(stData.ROOM_NAME) + ".txt";
+	string szFullPath2 = string("Server/") + string("AllChat.txt");
 	ofstream writeFile(szFullPath.data(), ios::app);
+	ofstream writeFile2(szFullPath2.data(), ios::app);
 	if (!writeFile.is_open()) 
 	{
 		char strFolderPath[] = "Server";
@@ -29,5 +31,8 @@ void cLogManager::CreateLog(ST_CHAT stData)
 	}
 	writeFile << g_pTime->GetLocalTime() << " ";
 	writeFile << stData.TEXT;
+	writeFile2 << g_pTime->GetLocalTime() << " ";
+	writeFile2 << stData.TEXT;
 	writeFile.close();
+	writeFile2.close();
 }
