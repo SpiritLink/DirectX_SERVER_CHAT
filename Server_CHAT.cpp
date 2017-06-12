@@ -9,7 +9,7 @@ HANDLE hThread;
 SOCKET clntSocks[MAX_CLNT];
 
 unsigned int _stdcall HandleClnt(void * arg);
-void SendMsg(char* msg, int Len);
+void SendMsg(ST_CHAT msg, int Len);
 
 Server_CHAT::Server_CHAT()
 {
@@ -77,7 +77,7 @@ unsigned int _stdcall HandleClnt(void * arg)
 	while ((strLen = recv(hClntSock, (char*)&chat, sizeof(ST_CHAT), 0)) != 0)
 	{
 		if (strLen == -1) break;
-		SendMsg(chat.TEXT, sizeof(chat.TEXT));
+		SendMsg(chat, sizeof(ST_CHAT));
 		g_pLog->CreateLog(chat);
 	}
 
@@ -98,14 +98,15 @@ unsigned int _stdcall HandleClnt(void * arg)
 }
 
 /* Server -> Client 로 채팅을 전송하는 부분 */
-void SendMsg(char* msg, int len)
+void SendMsg(ST_CHAT msg, int len)
 {
+	ST_CHAT SendData = msg;
 	int i;
 	WaitForSingleObject(hMutex_CHAT, INFINITE);	// << : Wait Mutex
 	for (i = 0; i < clntCnt; i++)
 	{
-		send(clntSocks[i], msg, len, 0);
-		cout << "send Msg " << endl;
+		send(clntSocks[i], (char*)&SendData, sizeof(ST_CHAT), 0);
+		cout << SendData.TEXT << endl;
 	}
 	ReleaseMutex(hMutex_CHAT);					//	<< : Release Mutex
 }
