@@ -30,9 +30,9 @@ void cLogManager::CreateLog(ST_CHAT stData)
 		}
 	}
 	writeFile << g_pTime->GetLocalTime() << " ";
-	writeFile << stData.TEXT;
+	writeFile << stData.TEXT << endl;
 	writeFile2 << g_pTime->GetLocalTime() << " ";
-	writeFile2 << stData.TEXT;
+	writeFile2 << stData.TEXT << endl;
 	writeFile.close();
 	writeFile2.close();
 }
