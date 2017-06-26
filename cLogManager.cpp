@@ -11,8 +11,11 @@ cLogManager::~cLogManager()
 {
 }
 
+/* txt파일로 채팅을 기록하는 함수입니다 */
 void cLogManager::CreateLog(ST_CHAT stData)
 {
+	// 방이름.txt 파일과 AllChat.txt파일 두개의 파일에 채팅이 기록됩니다.
+	// 방마다 채팅이 저장되며 모든 채팅이 순서대로 AllChat이라는 파일에 저장됩니다
 	string szFullPath = "Server/" + string(stData.ROOM_NAME) + ".txt";
 	string szFullPath2 = string("Server/") + string("AllChat.txt");
 	ofstream writeFile(szFullPath.data(), ios::app);

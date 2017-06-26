@@ -12,6 +12,7 @@ cTimeManager::~cTimeManager()
 {
 }
 
+/* 현재 시간을 string으로 반환하는 함수입니다 */
 string cTimeManager::GetLocalTime()
 {
 	m_stTimer = time(NULL);

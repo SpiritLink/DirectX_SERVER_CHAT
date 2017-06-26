@@ -20,6 +20,7 @@ Server_CHAT::~Server_CHAT()
 {
 }
 
+/* 클라이언트의 connect를 계속 accept한뒤 HandleClnt함수를 실행합니다 */
 void Server_CHAT::Setup()
 {
 	InitializeCriticalSection(&CS_CHAT);
@@ -54,6 +55,7 @@ void Server_CHAT::Setup()
 	}
 }
 
+/* 숫자패드 9를 누르면 현재 시간을 string으로 출력합니다 */
 void Server_CHAT::Update()
 {
 	if (GetAsyncKeyState(VK_NUMPAD9) & 0x0001)
@@ -62,12 +64,14 @@ void Server_CHAT::Update()
 	}
 }
 
+/* 소켓을 닫고 WSACleanup을 실행합니다 */
 void Server_CHAT::Destory()
 {
 	closesocket(hServSock);
 	WSACleanup();
 }
 
+/* 클라이언트의 채팅을 받은 뒤 현재 연결된 모든 클라이언트에게 채팅을 전송합니다 */
 unsigned int _stdcall HandleClnt(void * arg)
 {
 	SOCKET hClntSock = *((SOCKET*)arg);
@@ -111,6 +115,7 @@ void SendMsg(ST_CHAT msg, int len)
 	ReleaseMutex(hMutex_CHAT);					//	<< : Release Mutex
 }
 
+/* 에러가 발생하면 출력합니다 */
 void Errorhandling(char* msg)
 {
 	fputs(msg, stderr);

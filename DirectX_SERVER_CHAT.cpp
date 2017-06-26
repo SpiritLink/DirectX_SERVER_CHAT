@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Server_CHAT.h"
 
+/* Setup함수 (connect대기)를 무한루프 합니다 */
 unsigned _stdcall ThChat_ACCEPT(LPVOID lpParam)
 {
 	Server_CHAT * pServerChat = ((Server_CHAT*)lpParam);
@@ -11,9 +12,12 @@ unsigned _stdcall ThChat_ACCEPT(LPVOID lpParam)
 	return 0;
 }
 
+/*  Server_CHAT 클래스를 생성하고 ThChat_ACCEPT 스레드 함수를 실행합니다.
+	이후 Server_CHAT의 Update를 무한 루프합니다
+*/
 int main()
 {
-	DWORD dwThID1, dwThID2;
+	DWORD dwThID1;
 	HANDLE hThread;
 	unsigned long ulStackSize = 0;
 
